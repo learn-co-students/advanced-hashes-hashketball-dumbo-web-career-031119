@@ -122,7 +122,6 @@ puts game_hash[:home][:team_name]
 
 def num_points_scored(player)
   game_hash.each do |location, team_data|
-    #binding.pry
     team_data.each do |players, stats|
       if stats.include?(player)
         return game_hash[location][players][player][:points]
@@ -157,7 +156,7 @@ def team_colors(team)
 
 def team_names
   names = []
-  game_hash.collect do |location, team_data|
+  game_hash.each do |location, team_data|
     names << team_data[:team_name]
   end
   names
@@ -193,10 +192,9 @@ def big_shoe_rebounds
   shoe_sizes = []
   largest = 0
   rebound = 0
-  game_hash.collect do |location, team_data|
-    #binding.pry
-    game_hash[location][:players].collect do |player, stats|
-      stats.collect do |stat, stat_val|
+  game_hash.each do |location, team_data|
+    game_hash[location][:players].each do |player, stats|
+      stats.each do |stat, stat_val|
         if stat == :shoe
           shoe_sizes << stat_val
           largest = shoe_sizes.sort.last
@@ -205,9 +203,10 @@ def big_shoe_rebounds
           end
         end
       end
-    #binding.pry
-    #shoe_size = stats[:shoe]
     end
   end
   return rebound
 end
+
+
+################## BONUS #####################
